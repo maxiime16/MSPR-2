@@ -1,6 +1,6 @@
+// advertisements.js
 const express = require("express");
 const router = express.Router();
-
 
 module.exports = (db) => {
 
@@ -119,6 +119,7 @@ module.exports = (db) => {
       }
     );
   });
+
   /* Supprimer une annonce avec son ID */
   // Methode a faire
 
