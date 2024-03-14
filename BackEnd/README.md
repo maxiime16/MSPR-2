@@ -19,4 +19,7 @@
 - Commande: 'sqlite3 arosaje.db'
 - Lancer le serveur
 
-g
+# Ajout MSPR2
+
+## ajout de bibliothèque
+ - ```npm install joi``` Permet de faire des schémas pour améliorer la sécurité

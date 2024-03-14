@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 module.exports = (db) => {
-  // Récupérer toutes les catégories
+  /* Récupérer toutes les catégories */
   router.get("/", (_, res) => {
     db.all("SELECT * FROM category", (err, rows) => {
       if (err) {
@@ -13,7 +13,7 @@ module.exports = (db) => {
     });
   });
 
-  // Récupérer une catégorie par id
+  /* Récupérer une catégorie par id [NOT USE]*/
   router.get("/:id", (req, res) => {
     const categId = req.params.id;
 
