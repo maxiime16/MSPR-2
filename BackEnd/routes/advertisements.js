@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
+
 module.exports = (db) => {
+
+  /* Récupérer toutes les annonces */
   router.get("/", (_, res) => {
     db.all("SELECT * FROM advertisements", (err, rows) => {
       if (err) {
@@ -17,10 +20,9 @@ module.exports = (db) => {
     });
   });
 
-  // Récupérer une annonce par ID
+  /* Récupérer une annonce par son ID */
   router.get("/:id", (req, res) => {
     const advertisementsId = req.params.id;
-
     db.get(
       "SELECT * FROM Advertisements WHERE id = ?",
       [advertisementsId],
@@ -42,15 +44,45 @@ module.exports = (db) => {
     );
   });
 
+  /* Créer une annonce */
   router.post("/create", (req, res) => {
-    const { title, description, user_id, longitude, latitude, category_id, sub_category_id, start_date, end_date, city, postal_code } = req.body;
+    const {
+      title,
+      description,
+      user_id,
+      longitude,
+      latitude,
+      category_id,
+      sub_category_id,
+      start_date,
+      end_date,
+      city,
+      postal_code,
+    } = req.body;
     db.run(
       "INSERT INTO Advertisements (title, description, user_id, longitude, latitude, category_id, sub_category_id, start_date, end_date, city, postal_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [title, description, user_id, longitude, latitude, category_id, sub_category_id, start_date, end_date, city, postal_code],
+      [
+        title,
+        description,
+        user_id,
+        longitude,
+        latitude,
+        category_id,
+        sub_category_id,
+        start_date,
+        end_date,
+        city,
+        postal_code,
+      ],
       function (err) {
         if (err) {
           console.error(err);
-          res.status(500).json({"details": "Erreur simulée lors de l'insertion", "error": "Erreur lors de l'insertion de l'annonce."});
+          res
+            .status(500)
+            .json({
+              details: "Erreur simulée lors de l'insertion",
+              error: "Erreur lors de l'insertion de l'annonce.",
+            });
         } else {
           // Renvoyer l'ID de la nouvelle annonce insérée
           res.json({
@@ -62,11 +94,10 @@ module.exports = (db) => {
     );
   });
 
-  // Mettre à jour une l'annonce par ID
+  /* Modifier une annonce avec son ID */
   router.put("/:id/update", (req, res) => {
     const advertisementsId = req.params.id;
     const { title, description, user_id, plants_id, location } = req.body;
-
     db.run(
       "UPDATE advertisements SET title = ?, description = ?, user_id = ?, plants_id = ?, location = ? WHERE id = ?",
       [title, description, user_id, plants_id, location, advertisementsId],
@@ -88,8 +119,10 @@ module.exports = (db) => {
       }
     );
   });
+  /* Supprimer une annonce avec son ID */
+  // Methode a faire
 
-  // Route pour récupérer les annonces en fonction de la catégorie
+  /* Route pour récupérer les annonces en fonction de l'ID d'une catégorie */
   router.get("/category/:categoryId", (req, res) => {
     const categoryId = req.params.categoryId;
     db.all(
@@ -98,7 +131,12 @@ module.exports = (db) => {
       (err, rows) => {
         if (err) {
           console.error(err);
-          res.status(500).json({"error": "Une erreur s'est produite lors de la récupération des annonces par id."});
+          res
+            .status(500)
+            .json({
+              error:
+                "Une erreur s'est produite lors de la récupération des annonces par id.",
+            });
         } else {
           res.json(rows);
         }
@@ -106,5 +144,5 @@ module.exports = (db) => {
     );
   });
 
-return router;
+  return router;
 };
