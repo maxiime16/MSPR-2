@@ -16,3 +16,8 @@ Branch microservice
 
 a chaque ajout mettre a jour le readme
 
+# ACTUALISATION DES BRANCH SUR LE LOCAL
+
+    git fetch ou git pull si ca ne focntionne pas 
+
+    git switch < Nom de la branch > ou git checkout < Nom de la branch >
