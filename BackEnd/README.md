@@ -18,3 +18,5 @@
 - Supprimer 'arosaje.db'
 - Commande: 'sqlite3 arosaje.db'
 - Lancer le serveur
+
+gf
